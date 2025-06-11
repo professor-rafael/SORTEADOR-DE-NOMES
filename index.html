@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Sorteador de Nomes</title>
+</head>
+<body>
+    <div class="container">
+        <div class="container__conteudo">
+            <div class="container__informacoes">
+                <div class="container__texto">
+                    <h1><span class="container__texto-azul">Sorteador de Nomes</span></h1>
+                    <div class="container__campo">
+                        <label class="texto__paragrafo">Quantidade de nomes para sortear</label>
+                        <input class="container__input" id="quantidade" type="number" min="1">
+                    </div>
+                    <div class="container__campo">
+                        <label class="texto__paragrafo">Lista de nomes (separados por vírgula)</label>
+                        <textarea class="container__input" id="nomes" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="chute container__botoes">
+                    <button onclick="sortear()" id="btn-sortear" class="container__botao">Sortear</button>
+                    <button onclick="reiniciar()" id="btn-reiniciar" class="container__botao-desabilitado">Reiniciar</button>
+                </div>
+                <div class="container__texto" id="resultado">
+                    <label class="texto__paragrafo">Nomes sorteados: nenhum até agora</label>
+                </div>
+                <div class="container__texto" id="restantes" style="display: none;">
+                    <label class="texto__paragrafo">Nomes restantes: </label>
+                </div>
+            </div>
+            <footer><span>RasinformáticA</span></footer>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
