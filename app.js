@@ -1,71 +1,102 @@
 let nomesDisponiveis = [];
+let todosNomesInseridos = [];
 
 function sortear() {
+    // Obter valores dos campos
     const quantidade = parseInt(document.getElementById('quantidade').value);
-    const nomesInput = document.getElementById('nomes').value;
+    const nomesInput = document.getElementById('nomes').value.trim();
     
-    // Se for o primeiro sorteio ou se reiniciou, carrega todos os nomes
+    // Se não há nomes disponíveis, carregar novos
     if (nomesDisponiveis.length === 0) {
-        // Limpa e divide os nomes pelo separador de vírgula
-        nomesDisponiveis = nomesInput.split(',')
-            .map(nome => nome.trim())
-            .filter(nome => nome.length > 0);
-        
-        if (nomesDisponiveis.length === 0) {
-            alert("Por favor, insira pelo menos um nome!");
-            return;
+        if (nomesInput === '') {
+            alert("Por favor, insira novos nomes para sortear!");
+            return false;
         }
+        
+        // Processar novos nomes
+        todosNomesInseridos = nomesInput.split(',')
+            .map(nome => nome.trim())
+            .filter(nome => nome !== '');
+            
+        if (todosNomesInseridos.length === 0) {
+            alert("Nenhum nome válido foi inserido!");
+            return false;
+        }
+        
+        // Resetar lista disponível
+        nomesDisponiveis = [...todosNomesInseridos];
+        document.getElementById('nomes').value = ''; // Limpar campo
     }
     
-    if (quantidade < 1 || quantidade > nomesDisponiveis.length) {
-        alert(`A quantidade deve ser entre 1 e ${nomesDisponiveis.length}!`);
-        return;
+    // Validar quantidade
+    if (isNaN(quantidade) || quantidade < 1 || quantidade > nomesDisponiveis.length) {
+        alert(`Insira uma quantidade entre 1 e ${nomesDisponiveis.length}!`);
+        return false;
     }
     
+    // Realizar sorteio
     const sorteados = [];
     
-    for (let i = 0; i < quantidade && nomesDisponiveis.length > 0; i++) {
-        // Sorteia um índice aleatório
+    for (let i = 0; i < quantidade; i++) {
         const indice = Math.floor(Math.random() * nomesDisponiveis.length);
-        
-        // Adiciona o nome sorteado ao array
         sorteados.push(nomesDisponiveis[indice]);
-        
-        // Remove o nome sorteado da lista disponível
         nomesDisponiveis.splice(indice, 1);
     }
     
-    const resultado = document.getElementById('resultado');
-    resultado.innerHTML = `<label class="texto__paragrafo">Nomes sorteados: ${sorteados.join(', ')}</label>`;
+    // Exibir resultados
+    exibirResultados(sorteados);
     
-    const restantes = document.getElementById('restantes');
-    if (nomesDisponiveis.length > 0) {
-        restantes.style.display = 'block';
-        restantes.innerHTML = `<label class="texto__paragrafo">Nomes restantes: ${nomesDisponiveis.join(', ')}</label>`;
-    } else {
-        restantes.style.display = 'none';
-        alert("Todos os nomes foram sorteados! Reinicie para começar novamente.");
+    // Verificar se acabaram os nomes
+    if (nomesDisponiveis.length === 0) {
+        setTimeout(() => {
+            alert("Todos os nomes foram sorteados! Insira novos nomes para continuar.");
+        }, 500);
     }
     
-    alterarStatusBotao();
+    // Ativar botão reiniciar
+    document.getElementById('btn-reiniciar').classList.remove('disabled');
+    return true;
 }
 
-function alterarStatusBotao() {
-    const botao = document.getElementById('btn-reiniciar');
-    if (botao.classList.contains('container__botao-desabilitado')) {
-        botao.classList.remove('container__botao-desabilitado');
-        botao.classList.add('container__botao');
+function exibirResultados(sorteados) {
+    const resultado = document.getElementById('resultado');
+    const restantes = document.getElementById('restantes');
+    
+    // Exibir sorteados
+    resultado.innerHTML = `
+        <div class="sorteado-container">
+            <span class="texto__paragrafo">Nomes sorteados:</span>
+            ${sorteados.map(nome => `
+                <div class="sorteado-destaque">${nome}</div>
+            `).join('')}
+        </div>
+    `;
+    
+    // Exibir restantes (se houver)
+    if (nomesDisponiveis.length > 0) {
+        restantes.style.display = 'flex';
+        restantes.innerHTML = `
+            <i class="fas fa-list-ol"></i>
+            <span>Nomes restantes: ${nomesDisponiveis.join(', ')}</span>
+        `;
     } else {
-        botao.classList.remove('container__botao');
-        botao.classList.add('container__botao-desabilitado');
+        restantes.style.display = 'none';
     }
 }
 
 function reiniciar() {
+    // Resetar todos os campos e variáveis
     document.getElementById('quantidade').value = '';
     document.getElementById('nomes').value = '';
-    document.getElementById('resultado').innerHTML = '<label class="texto__paragrafo">Nomes sorteados: nenhum até agora</label>';
+    document.getElementById('resultado').innerHTML = `
+        <i class="fas fa-trophy"></i>
+        <span>Nomes sorteados: nenhum até agora</span>
+    `;
     document.getElementById('restantes').style.display = 'none';
-    nomesDisponiveis = []; // Limpa a lista de nomes disponíveis
-    alterarStatusBotao();
+    
+    nomesDisponiveis = [];
+    todosNomesInseridos = [];
+    
+    // Desativar botão reiniciar
+    document.getElementById('btn-reiniciar').classList.add('disabled');
 }

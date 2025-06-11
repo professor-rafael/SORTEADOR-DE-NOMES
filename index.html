@@ -5,39 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="icon.png" href="icon.png">
     <link rel="stylesheet" href="style.css">
-    <title>Sorteador de Nomes</title>
+    <title>Sorteador de nomes</title>
 </head>
 <body>
+    <div class="neon-circle"></div>
+    <div class="neon-circle small"></div>
+    
     <div class="container">
-        <div class="container__conteudo">
-            <div class="container__informacoes">
-                <div class="container__texto">
-                    <h1><span class="container__texto-azul">Sorteador de Nomes</span></h1>
-                    <div class="container__campo">
-                        <label class="texto__paragrafo">Quantidade de nomes para sortear</label>
-                        <input class="container__input" id="quantidade" type="number" min="1">
+        <div class="glass-card">
+            <div class="header">
+                <h1><span class="neon-text">SORTEADOR</span> <span class="tech-text">Nomes</span></h1>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="content">
+                <div class="input-group">
+                    <label>Quantidade de nomes</label>
+                    <div class="input-field">
+                        <i class="fas fa-hashtag"></i>
+                        <input id="quantidade" type="number" min="1" placeholder="Quantidade a sortear">
                     </div>
-                    <div class="container__campo">
-                        <label class="texto__paragrafo">Lista de nomes (separados por vírgula)</label>
-                        <textarea class="container__input" id="nomes" rows="4"></textarea>
+                </div>
+                
+                <div class="input-group">
+                    <label>Lista de nomes</label>
+                    <div class="input-field textarea-field">
+                        <i class="fas fa-users"></i>
+                        <textarea id="nomes" rows="4" placeholder="Insira os nomes separados por vírgula"></textarea>
                     </div>
                 </div>
-                <div class="chute container__botoes">
-                    <button onclick="sortear()" id="btn-sortear" class="container__botao">Sortear</button>
-                    <button onclick="reiniciar()" id="btn-reiniciar" class="container__botao-desabilitado">Reiniciar</button>
+                
+                <div class="button-group">
+                    <button onclick="sortear()" id="btn-sortear" class="neon-button">
+                        <i class="fas fa-random"></i> Sortear
+                    </button>
+                    <button onclick="reiniciar()" id="btn-reiniciar" class="tech-button disabled">
+                        <i class="fas fa-sync-alt"></i> Reiniciar
+                    </button>
                 </div>
-                <div class="container__texto" id="resultado">
-                    <label class="texto__paragrafo">Nomes sorteados: nenhum até agora</label>
-                </div>
-                <div class="container__texto" id="restantes" style="display: none;">
-                    <label class="texto__paragrafo">Nomes restantes: </label>
+                
+                <div class="results">
+                    <div id="resultado" class="result-box">
+                        <i class="fas fa-trophy"></i>
+                        <span>Nomes sorteados: nenhum até agora</span>
+                    </div>
+                    <div id="restantes" class="result-box remaining" style="display: none;">
+                        <i class="fas fa-list-ol"></i>
+                        <span>Nomes restantes: </span>
+                    </div>
                 </div>
             </div>
-            <footer><span>RasinformáticA</span></footer>
+            
+            <div class="footer">
+                <span class="glow">RasinformáticA</span>
+                <div class="tech-lines"></div>
+            </div>
         </div>
     </div>
+    
+    <div class="particles"></div>
+    
     <script src="app.js"></script>
 </body>
 </html>
