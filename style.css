@@ -339,3 +339,38 @@ body {
     }
 }
 
+
+.sorteado-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.texto__paragrafo {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.sorteado-destaque {
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: var(--primary);
+    animation: float 3s ease-in-out infinite;
+    text-align: center;
+    padding: 5px 0;
+}
+
+/* Ajuste para múltiplos nomes sorteados */
+.sorteado-destaque:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.sorteado-destaque:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+/* Mantém o estilo original para os restantes */
+.result-box.remaining span {
+    font-size: 1rem;
+    color: var(--light);
+}
